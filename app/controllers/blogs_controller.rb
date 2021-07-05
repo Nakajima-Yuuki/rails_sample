@@ -1,15 +1,22 @@
 class BlogsController < ApplicationController
   def index
     @blogs = Blog.all
+    binding.pry
   end
   def new
     @blog = Blog.new
   end
   def create
     Blog.create(blog_params)
-    redirect_to new_blog_path
+    if @blog.save
+    redirect_to new_blog_path, notice: "ブログを作成しました！"
+    else
+      render :new
+    end
   end
-  # 定義する
+  def edit
+  
+  end
   def show
     @blog = Blog.find(params[:id])
   end
